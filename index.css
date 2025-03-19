@@ -1,81 +1,123 @@
-	html {
-		scroll-behavior: smooth;
-	}
+html {
+    scroll-behavior: smooth;
+}
 
-	body {
-		font-family: sans-serif;
-		font-size: 16px;
-	}
+body {
+    font-family: sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
 
-	/*Jumbotron*/
-	.jumbotron {
-		background-image: url(images/Background/miedowerr.webp);
-		background-size: cover;
-		height: 350px;
-		width: 100%;
-		color: white;
-	}
+/* Jumbotron */
+.jumbotron {
+    background-image: url(images/Background/miedowerr.webp);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 350px;
+    width: 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
 
-	.jumbotron .display-4 {
-		margin-top: 30px;
-	}
+.jumbotron .display-4 {
+    margin-top: 10px;
+    font-size: 32px;
+    font-weight: bold;
+}
 
-	.jumbotron p {
-		font-size: 23px;
-	}
+.jumbotron p {
+    font-size: 20px;
+    max-width: 600px;
+    margin: 10px auto;
+}
 
-	.jumbotron hr {
-		border-color: white;
-		width: 400px;
-		border-width: 3px;
-	}
-	/*Akhir Jumbotron*/
+.jumbotron hr {
+    border-color: white;
+    width: 300px;
+    border-width: 3px;
+    margin-top: 10px;
+}
+/* Akhir Jumbotron */
 
-	/*Navbar*/
-	.navbar {
-		margin-top: -32px;
-	}
+/* Navbar */
+.navbar {
+    margin-top: -32px;
+}
 
-	.navbar .navbar-nav .nav-link {
-		color: white;
-	}
+.navbar .navbar-nav .nav-link {
+    color: white;
+    transition: color 0.3s ease-in-out;
+}
 
-	.navbar .navbar-nav .nav-link:hover {
-		color: orange;
-	}
+.navbar .navbar-nav .nav-link:hover {
+    color: orange;
+}
 
-	.navbar .navbar-brand  {
-		font-size: 30px;
-	}
-	/*Akhir Navbar*/
+.navbar .navbar-brand {
+    font-size: 30px;
+}
+/* Akhir Navbar */
 
-	/*Footer*/
-	.footer {
-		margin-top: 150px;
-		border-width: 3px;
-	}
+/* Footer */
+.footer {
+    margin-top: 150px;
+    border-width: 3px;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+}
 
-	.footer-body {
-		margin-top: 60px;
-		margin-bottom: 50px;
-	}
-	/*Akhir Footer*/
+.footer-body {
+    margin-top: 60px;
+    margin-bottom: 50px;
+}
+/* Akhir Footer */
 
-	/*Home*/
-	.judul {
-		margin-bottom: 120px;
-	}
+/* Home */
+.judul {
+    margin-bottom: 120px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+}
 
-	.card-img {
-		max-width: 300px; /* Atur ukuran maksimum gambar */
-		height: auto; /* Agar gambar tidak terdistorsi */
-		object-fit: cover; /* Memastikan gambar tetap terlihat rapi */
-		transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
-	}
-	
-	.card-img:hover {
-		box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
-		transform: scale(1.05); /* Sedikit membesarkan gambar saat hover */
-	}
-	
-	/*Akhir Home*/
+.card-img {
+    max-width: 300px; /* Ukuran maksimum gambar */
+    height: auto;
+    object-fit: cover;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.card-img:hover {
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+    transform: scale(1.05);
+}
+/* Akhir Home */
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .jumbotron {
+        height: 280px;
+        padding: 15px;
+    }
+
+    .jumbotron .display-4 {
+        font-size: 24px;
+    }
+
+    .jumbotron p {
+        font-size: 18px;
+    }
+
+    .footer {
+        margin-top: 100px;
+    }
+}

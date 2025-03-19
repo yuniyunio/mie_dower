@@ -1,8 +1,8 @@
 <?php 
     session_start();
-      if(!isset($_SESSION['login_user'])) {
+    if(!isset($_SESSION['login_user'])) {
         header("location: login.php");
-      }else{
+    } else {
 ?>
 
 <!doctype html>
@@ -18,7 +18,22 @@
     <link rel="stylesheet" type="text/css" href="index.css">
     <link rel="stylesheet" type="text/css" href="fontawesome/css/all.min.css">
 
-    <title>Mie Dower</title>
+    <title>MIE DOWER</title>
+
+    <style>
+      /* Perbaikan ukuran gambar */
+      .enlarged-img {
+          width: 100%; /* Lebar penuh */
+          height: 350px; /* Tinggi diperbesar */
+          object-fit: cover; /* Menyesuaikan gambar agar tetap rapi */
+          transition: transform 0.3s ease-in-out; /* Efek saat hover */
+      }
+
+      .enlarged-img:hover {
+          transform: scale(1.05); /* Efek zoom saat hover */
+      }
+    </style>
+
   </head>
   <body>
 
@@ -69,10 +84,10 @@
           <br>Buka Jam <strong>09:00 - 15:00</strong></h5>
         </div>
 
-        <div class="row mb-5 mt-5 ">
+        <div class="row mb-5 mt-5">
           <div class="col-md-6 d-flex justify-content-end">
             <div class="card bg-dark text-white border-light">
-              <img src="images/background/lihat menu.webp" class="card-img" alt="Lihat Daftar Menu">
+              <img src="images/background/lihat menu.webp" class="card-img enlarged-img" alt="Lihat Daftar Menu">
               <div class="card-img-overlay mt-5 text-center">
                <a href="daftar_menu.php" class="btn btn-primary">LIHAT DAFTAR MENU</a>
               </div>
@@ -81,7 +96,7 @@
 
           <div class="col-md-6 d-flex justify-content-start">
             <div class="card bg-dark text-white border-light">
-              <img src="images/background/lihat pesanan.webp" class="card-img" alt="Lihat Pesanan">
+              <img src="images/background/lihat pesanan.webp" class="card-img enlarged-img" alt="Lihat Pesanan">
               <div class="card-img-overlay mt-5 text-center">
                <a href="pesanan.php" class="btn btn-primary">LIHAT PESANAN</a>
               </div>
