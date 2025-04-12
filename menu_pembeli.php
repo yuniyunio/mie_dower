@@ -74,19 +74,31 @@
 
           ?>
 
-          <?php foreach($result as $result) : ?>
+<?php foreach ($result as $menu) : ?>
+        <div class="col-md-3 mt-4">
+            <div class="card border-dark">
+                <?php 
+                $gambarPath = 'upload/' . $menu['gambar'];
+                if (file_exists($gambarPath) && !empty($menu['gambar'])) {
+                    echo '<img src="' . $gambarPath . '" class="card-img-top" alt="gambar menu">';
+                } else {
+                    echo '<img src="https://via.placeholder.com/250x150?text=No+Image" class="card-img-top" alt="no image">';
+                }
+                ?>
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold"><?php echo $menu['nama_menu']; ?></h5>
+                    <label class="card-text harga"><strong>Rp.</strong> <?php echo number_format($menu['harga']); ?></label><br>
+                    <small>Stok: <?php echo $menu['stok']; ?></small><br>
 
-          <div class="col-md-3 mt-4">
-            <div class="card brder-dark">
-              <img src="upload/<?php echo $result['gambar'] ?>" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title font-weight-bold"><?php echo $result['nama_menu'] ?></h5>
-               <label class="card-text harga"><strong>Rp.</strong> <?php echo number_format($result['harga']); ?></label><br>
-                <a href="beli.php?id_menu=<?php echo $result['id_menu']; ?>" class="btn btn-success btn-sm btn-block ">BELI</a>
-              </div>
+                    <?php if ($menu['stok'] > 0) { ?>
+                        <a href="beli.php?id_menu=<?php echo $menu['id_menu']; ?>" class="btn btn-success btn-sm btn-block">BELI</a>
+                    <?php } else { ?>
+                        <button class="btn btn-danger btn-sm btn-block" disabled>STOK HABIS</button>
+                    <?php } ?>
+                </div>
             </div>
-          </div>
-          <?php endforeach; ?>
+        </div>
+        <?php endforeach; ?>
          </div> 
       </div>
   <!-- Akhir Menu -->

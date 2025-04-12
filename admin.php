@@ -38,7 +38,7 @@
   <body>
 
   <!-- Jumbotron -->
-      <div class="jumbotron jumbotron-fluid text-center">
+  <div class="jumbotron jumbotron-fluid text-center">
         <div class="container">
           <h1 class="display-4"><span class="font-weight-bold">MIE DOWER</span></h1>
           <hr>
@@ -51,7 +51,7 @@
   <!-- Navbar -->
       <nav class="navbar navbar-expand-lg  bg-dark">
         <div class="container">
-        <a class="navbar-brand text-white" href="admin.php"><strong>Mie</strong> Dower</a>
+        <a class="navbar-brand text-white" href="admin.php"><strong>MIE DOWER</strong></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>

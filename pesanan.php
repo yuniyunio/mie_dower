@@ -25,7 +25,7 @@
   </head>
   <body>
   <!-- Jumbotron -->
-      <div class="jumbotron jumbotron-fluid text-center">
+  <div class="jumbotron jumbotron-fluid text-center">
         <div class="container">
           <h1 class="display-4"><span class="font-weight-bold">MIE DOWER</span></h1>
           <hr>
@@ -96,10 +96,7 @@
             <td>
               
               <a href="detail_pesanan.php?id=<?php echo $result['id_pemesanan'] ?>" class="badge badge-primary">Detail</a>
-             
-
-              <a href="clear_pesanan.php?id=<?php echo $result['id_pemesanan'] ?>" class="badge badge-danger">Hapus Data</a>
-            </td>
+                         </td>
           </tr>
           <?php $nomor++; ?>
           <?php endforeach; ?>

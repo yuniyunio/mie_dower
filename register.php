@@ -59,14 +59,6 @@
           <label for="telp">No. Telephone</label>
           <input type="text" class="form-control" id="telp" name="hp" placeholder="No. Telephone">
         </div>
-      <div class="form-group col-md-4">
-          <label for="sts">Status Registrasi</label>
-          <select id="sts" class="form-control" name="status">
-            <option selected>Pilih...</option>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div>
       </div>     
       <button type="register" class="btn btn-primary">Register</button>
       <button type="reset" class="btn btn-danger">Reset</button>

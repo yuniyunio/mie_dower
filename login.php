@@ -1,5 +1,9 @@
 <?php 
 include 'koneksi.php';
+session_start();
+session_destroy();
+session_start();
+
 ?>
 
 <!doctype html>
@@ -51,37 +55,38 @@ include 'koneksi.php';
       </form>
   <!-- Akhir Form Login -->
 
-  <!-- Eksekusi Form Login -->
-      <?php 
-        if(isset($_POST['submit'])) {
-          $user = $_POST['username'];
-          $password = $_POST['password'];
+  <?php 
+include 'koneksi.php'; // Pastikan file ini ada dan mendefinisikan $koneksi
 
-          // Query untuk memilih tabel
-          $cek_data = mysqli_query($koneksi, "SELECT * FROM user WHERE username = '$user' AND password = '$password'");
-          $hasil = mysqli_fetch_array($cek_data);
-          $status = $hasil['status'];
-          $login_user = $hasil['username'];
-          $row = mysqli_num_rows($cek_data);
+if (isset($_POST['submit'])) {
+    $user = $_POST['username'];
+    $password = $_POST['password'];
 
-          // Pengecekan Kondisi Login Berhasil/Tidak
-            if ($row > 0) {
-                session_start();   
-                $_SESSION['login_user'] = $login_user;
+    // Ambil data user berdasarkan username
+    $cek_data = mysqli_query($koneksi, "SELECT * FROM user WHERE username = '$user'");
+    $hasil = mysqli_fetch_array($cek_data);
+    $row = mysqli_num_rows($cek_data);
 
-                if ($status == 'admin') {
-                  header('location: admin.php');
-                }elseif ($status == 'user') {
-                  header('location: user.php'); 
-                }
-            }else{
-                header("location: login.php");
+    if ($row > 0) {
+        // Kalau password belum di-hash
+        if ($password === $hasil['password']) {
+            session_start();
+            $_SESSION['login_user'] = $hasil['username'];
+            if ($hasil['status'] === 'admin') {
+                header("Location: admin.php");
+                exit();
+            } elseif ($hasil['status'] === 'user') {
+                header("Location: user.php");
+                exit();
             }
+        } else {
+            echo "<script>alert('Password salah!'); window.location='login.php';</script>";
         }
-       ?>
-    </div>
-  <!-- Akhir Eksekusi Form Login -->
-
+    } else {
+        echo "<script>alert('Username tidak ditemukan!'); window.location='login.php';</script>";
+    }
+}
+?>
 
 
 

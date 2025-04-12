@@ -3,8 +3,10 @@ include('koneksi.php');
 
 $id_menu = $_GET['id_menu'];
 
+// Ambil data dari database
 $ambil = mysqli_query($koneksi, "SELECT * FROM produk WHERE id_menu='$id_menu'");
 $result = mysqli_fetch_all($ambil, MYSQLI_ASSOC);
+
 
 ?>
 

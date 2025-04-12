@@ -10,20 +10,24 @@ if (!isset($_SESSION['login_user'])) {
 <?php 
 if(isset($_POST["konfirm"]))
 {
-    $nama = isset($_POST['nama_lengkap']) ? $_POST['nama_lengkap'] : '';
-    $alamat = isset($_POST['alamat']) ? $_POST['alamat'] : '';
-    $no_hp = isset($_POST['nomor_hp']) ? $_POST['nomor_hp'] : '';
+    $nama = isset($_POST['nama_lengkap']) ? mysqli_real_escape_string($koneksi, $_POST['nama_lengkap']) : '';
+    $alamat = isset($_POST['alamat']) ? mysqli_real_escape_string($koneksi, $_POST['alamat']) : '';
+    $no_hp = isset($_POST['nomor_hp']) ? mysqli_real_escape_string($koneksi, $_POST['nomor_hp']) : '';
     $tanggal_pemesanan = date("Y-m-d");
+
+    // Validasi nomor HP harus 11–12 digit angka
+    if (!preg_match('/^\d{11,12}$/', $no_hp)) {
+        echo "<script>alert('Nomor HP harus terdiri dari 11 hingga 12 digit angka!');</script>";
+        echo "<script>location='konfirmasi_pesanan.php';</script>"; // Ganti jika nama file berbeda
+        exit;
+    }
 
     // Simpan data pemesan ke database
     $insert = mysqli_query($koneksi, "INSERT INTO pemesanan (nama_lengkap, alamat, nomor_hp, tanggal_pemesanan, total_belanja) 
                                       VALUES ('$nama', '$alamat', '$no_hp', '$tanggal_pemesanan', '0')");
 
     if ($insert) {
-        // Mendapatkan ID pemesanan terbaru
         $id_terbaru = $koneksi->insert_id;
-
-        // Simpan data pesanan ke tabel pemesanan_produk
         $totalbelanja = 0;
         foreach ($_SESSION["pesanan"] as $id_menu => $jumlah) {
             $ambil = mysqli_query($koneksi, "SELECT harga FROM produk WHERE id_menu='$id_menu'");
@@ -32,15 +36,11 @@ if(isset($_POST["konfirm"]))
             $totalbelanja += $subharga;
 
             $insert_produk = mysqli_query($koneksi, "INSERT INTO pemesanan_produk (id_pemesanan, id_menu, jumlah) 
-            VALUES ('$id_terbaru', '$id_menu', '$jumlah')");}
+            VALUES ('$id_terbaru', '$id_menu', '$jumlah')");
+        }
 
-        // Update total belanja pada pemesanan
         mysqli_query($koneksi, "UPDATE pemesanan SET total_belanja='$totalbelanja' WHERE id_pemesanan='$id_terbaru'");
-
-        // Kosongkan pesanan di session
         unset($_SESSION["pesanan"]);
-
-        // Redirect ke halaman nota
         echo "<script>alert('Pemesanan Sukses!');</script>";
         echo "<script>location='menu_pembeli.php'</script>";
     }
@@ -62,7 +62,6 @@ if(isset($_POST["konfirm"]))
         <h3 class="text-center font-weight-bold">PESANAN ANDA</h3>
     </div>
 
-    <!-- Form Data User + Pesanan -->
     <form method="POST" action="">
         <div class="user-details mb-4">
             <h5>Data Diri Anda</h5>
@@ -76,7 +75,7 @@ if(isset($_POST["konfirm"]))
             </div>
             <div class="form-group">
                 <label>No. HP</label>
-                <input type="text" class="form-control" name="nomor_hp" required>
+                <input type="text" class="form-control" name="nomor_hp" required minlength="11" maxlength="12" pattern="\d{11,12}" title="Nomor HP harus terdiri dari 11 hingga 12 digit angka">
             </div>
         </div>
 
@@ -129,26 +128,20 @@ if(isset($_POST["konfirm"]))
         <button class="btn btn-success btn-sm" name="konfirm">Konfirmasi Pesanan</button>
     </form>
 </div>
-    <!-- Akhir Menu -->
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" 
-      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-    <script>
-      $(document).ready(function() {
-          $('#example').DataTable();
-      });
-    </script>
-  </body>
+<!-- Optional JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script>
+  $(document).ready(function() {
+      $('#example').DataTable();
+  });
+</script>
+</body>
 </html>
-<?php  ?>
